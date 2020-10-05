@@ -120,7 +120,7 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
     val years = 3
     var ch: Double = initial + (percent.toDouble() / 100) * initial
     repeat(years - 1) {
-        ch += (percent.toDouble() / 100) * ch
+        ch += (percent.toDouble() / 100) *ch
     }
     return ch
 }
