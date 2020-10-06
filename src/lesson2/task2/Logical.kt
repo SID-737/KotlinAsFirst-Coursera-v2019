@@ -5,6 +5,7 @@ package lesson2.task2
 import lesson1.task1.sqr
 import java.lang.Integer.min
 import java.lang.Math.max
+import java.lang.Math.sqrt
 
 
 /**
@@ -40,7 +41,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))  {
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
         when (month) {
             1, 3, 5, 7, 8, 10, 12 -> return 31
             2 -> return 29
@@ -65,7 +66,10 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = TODO()
+): Boolean {
+    val distSq = sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)))
+    if (distSq + r1 <= r2) return true else return false
+}
 
 /**
  * Средняя
