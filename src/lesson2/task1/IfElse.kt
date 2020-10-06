@@ -81,7 +81,19 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val S = t1 * v1 + t2 * v2 + t3 * v3
+    val Sh = S / 2
+    var timeres = 0.0
+    if (Sh - t1 * v1 >= 0) {
+        timeres += t1
+        if (Sh - t1 * v1 - t2 * v2 >= 0) {
+            timeres += t2
+            timeres += (Sh - t1 * v1 - t2 * v2) / v3
+        } else timeres += (Sh - t1 * v1) / v2
+    } else timeres += Sh / v1
+    return timeres
+}
 
 /**
  * Простая
@@ -96,7 +108,22 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    var result = 0
+    if ((rookX1 == kingX && (rookX2 == kingX || rookY2 == kingY)) ||
+        (rookY1 == kingY && (rookX2 == kingX || rookY2 == kingY))){
+        result = 3
+    }
+    if ((rookX1 == kingX && (rookX2 != kingX && rookY2 != kingY)) ||
+        (rookY1 == kingY && (rookX2 != kingX && rookY2 != kingY))){
+        result = 1
+    }
+    if ((rookX2 == kingX && (rookX1 != kingX && rookY1 != kingY)) ||
+        (rookY2 == kingY && (rookX1 != kingX && rookY1 != kingY))){
+        result = 2
+    }
+    return result
+}
 
 /**
  * Простая
@@ -138,17 +165,17 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     if (c > b) return -1
     if (d < a) return -1
     if (c <= a) {
-        if (a < b && b > d) {
-            return (abs(d) - abs(a))
-        } else if (b < d) {
-            return (abs(b) - abs(a))
+        if (a < d && b > d) {
+            return (abs(a - d))
+        } else if (b <= d) {
+            return (abs(a - b))
         }
     }
     if (a < c && b > c) {
-        if (d < b) {
-            return (abs(d) - abs(c))
+        if (d <= b) {
+            return (abs(c - d))
         } else if (d > b) {
-            return (abs(b) - abs(c))
+            return (abs(c - b))
         }
     }
     return -1 //special return for fix
